@@ -118,8 +118,21 @@ body {
     font-family: 'Inter', sans-serif !important;
     font-weight: 800 !important;
     color: var(--text-primary) !important;
-    margin-bottom: 2rem !important;
+    margin-bottom: 1rem !important;
     line-height: 1.1 !important;
+}
+
+.submission-label {
+  display: inline-block;
+  margin: 0 0 1.5rem;
+  padding: 0.55rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  background: var(--background-accent);
+  color: var(--text-secondary);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0;
 }
 
 .publication-banner {
@@ -748,6 +761,5 @@ a:focus {
     box-shadow: none !important;
   }
 }
-
 
 
