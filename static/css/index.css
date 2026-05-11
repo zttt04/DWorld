@@ -1,23 +1,25 @@
 /* Modern CSS Variables for consistent theming */
 :root {
-  --primary-color: #2563eb;
-  --primary-hover: #1d4ed8;
-  --secondary-color: #64748b;
-  --accent-color: #0ea5e9;
-  --text-primary: #1e293b;
-  --text-secondary: #64748b;
-  --text-light: #94a3b8;
+  --primary-color: #8b5cf6;
+  --primary-hover: #7c3aed;
+  --secondary-color: #8a7899;
+  --accent-color: #ec4899;
+  --accent-soft: #f9a8d4;
+  --text-primary: #241b35;
+  --text-secondary: #6f5f82;
+  --text-light: #a694b8;
   --background-primary: #ffffff;
-  --background-secondary: #f8fafc;
-  --background-accent: #f1f5f9;
-  --border-color: #e2e8f0;
-  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-  --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  --gradient-accent: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-  --gradient-subtle: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+  --background-secondary: #fbf7ff;
+  --background-accent: #f6edff;
+  --background-pink: #fff1f8;
+  --border-color: #eadcf6;
+  --shadow-sm: 0 1px 2px 0 rgb(85 45 120 / 0.06);
+  --shadow-md: 0 10px 28px -18px rgb(126 58 180 / 0.45);
+  --shadow-lg: 0 18px 44px -26px rgb(126 58 180 / 0.5);
+  --shadow-xl: 0 24px 60px -30px rgb(126 58 180 / 0.55);
+  --gradient-primary: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+  --gradient-accent: linear-gradient(135deg, #c084fc 0%, #f472b6 100%);
+  --gradient-subtle: linear-gradient(135deg, #fbf7ff 0%, #fff1f8 100%);
   --border-radius: 12px;
   --border-radius-lg: 16px;
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -33,7 +35,7 @@ body {
   color: var(--text-primary);
   line-height: 1.6;
   font-size: 16px;
-  background-color: var(--background-primary);
+  background: linear-gradient(180deg, #fff 0%, #fffbfe 42%, #fbf7ff 100%);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -50,7 +52,7 @@ body {
 }
 
 .button.is-dark {
-  background: var(--text-primary) !important;
+  background: linear-gradient(135deg, #302044, #7c3aed) !important;
   border: none !important;
   color: white !important;
   box-shadow: var(--shadow-md);
@@ -59,7 +61,7 @@ body {
 .button.is-dark:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow-lg);
-  background: var(--primary-color) !important;
+  background: var(--gradient-primary) !important;
 }
 
 .button.is-dark:active {
@@ -94,7 +96,7 @@ body {
 }
 
 .hero.is-light {
-  background: var(--background-secondary);
+  background: linear-gradient(180deg, #fff7fc 0%, #fbf7ff 100%);
   border-top: 1px solid var(--border-color);
   border-bottom: 1px solid var(--border-color);
 }
@@ -127,9 +129,9 @@ body {
   align-items: center;
   gap: 0;
   margin: 0 0 1.75rem;
-  border: 1px solid rgba(37, 99, 235, 0.22);
+  border: 1px solid rgba(236, 72, 153, 0.2);
   border-radius: 999px;
-  background: var(--background-primary);
+  background: rgba(255, 255, 255, 0.9);
   color: var(--text-primary);
   font-size: 0.98rem;
   font-weight: 700;
@@ -146,18 +148,19 @@ body {
 }
 
 .submission-venue {
-  background: var(--primary-color);
+  background: var(--gradient-primary);
   color: white;
 }
 
 .submission-kind {
   color: var(--text-secondary);
-  border-right: 1px solid var(--border-color);
+  border-right: 1px solid #f1d7ec;
+  background: #fff;
 }
 
 .submission-number {
-  color: var(--primary-color);
-  background: var(--background-accent);
+  color: #9d174d;
+  background: linear-gradient(135deg, #fff1f8, #f6edff);
 }
 
 .publication-banner {
@@ -201,13 +204,13 @@ body {
 }
 
 .publication-awards {
-    color: #ef4444;
+    color: #be185d;
     width: fit-content;
     font-weight: 700;
-    background: linear-gradient(135deg, #fef2f2, #fee2e2);
+    background: linear-gradient(135deg, #fff1f8, #fce7f3);
     padding: 0.5rem 1rem;
     border-radius: var(--border-radius);
-    border-left: 4px solid #ef4444;
+    border-left: 4px solid var(--accent-color);
     margin-top: 1rem;
 }
 
@@ -295,8 +298,8 @@ body {
   display: block;
   width: 100%;
   height: auto;
-  border-radius: var(--border-radius);
-  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-lg);
+  border: 1px solid rgba(192, 132, 252, 0.28);
   background: var(--background-primary);
   box-shadow: var(--shadow-lg);
 }
@@ -310,48 +313,117 @@ body {
   font-weight: 500;
 }
 
+.method-section {
+  background:
+    linear-gradient(180deg, #fff 0%, #fff7fc 48%, #fbf7ff 100%);
+  border-top: 1px solid var(--border-color);
+}
+
+.method-caption {
+  margin-top: 1.15rem;
+}
+
 .method-grid {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1rem;
-  margin-top: 2rem;
+  gap: 1.1rem;
+  margin-top: 2.25rem;
+}
+
+.method-grid::before {
+  content: '';
+  position: absolute;
+  top: 2.45rem;
+  left: 16%;
+  right: 16%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(192, 132, 252, 0.55), rgba(244, 114, 182, 0.55), transparent);
 }
 
 .method-card {
+  position: relative;
   padding: 1.25rem;
-  border: 1px solid var(--border-color);
-  border-radius: var(--border-radius);
-  background: var(--background-primary);
+  border: 1px solid rgba(192, 132, 252, 0.28);
+  border-radius: var(--border-radius-lg);
+  background: rgba(255, 255, 255, 0.86);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+
+.method-card::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 0.35rem;
+  background: var(--gradient-accent);
+}
+
+.method-card::after {
+  content: '';
+  position: absolute;
+  top: 0.35rem;
+  right: 0;
+  width: 7rem;
+  height: 7rem;
+  background: radial-gradient(circle at top right, rgba(244, 114, 182, 0.22), transparent 68%);
+  pointer-events: none;
+}
+
+.method-card-head {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.method-index {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: var(--gradient-primary);
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 800;
   box-shadow: var(--shadow-sm);
 }
 
 .method-step {
   display: inline-flex;
   align-items: center;
-  min-height: 1.8rem;
-  margin-bottom: 0.75rem;
-  padding: 0 0.7rem;
+  min-height: 1.75rem;
+  padding: 0 0.75rem;
   border-radius: 999px;
-  background: var(--background-accent);
-  color: var(--primary-color);
+  background: #fff1f8;
+  color: #9d174d;
   font-size: 0.8rem;
   font-weight: 800;
   letter-spacing: 0;
 }
 
 .method-card h3 {
-  margin: 0 0 0.65rem;
+  position: relative;
+  z-index: 1;
+  margin: 0 0 0.75rem;
   color: var(--text-primary);
-  font-size: 1.05rem;
+  font-size: 1.08rem;
   font-weight: 800;
   line-height: 1.3;
 }
 
 .method-card p {
+  position: relative;
+  z-index: 1;
   margin: 0;
   color: var(--text-secondary);
-  font-size: 0.95rem;
-  line-height: 1.65;
+  font-size: 0.94rem;
+  line-height: 1.7;
 }
 
 .results-carousel {
@@ -467,7 +539,7 @@ body {
 
 /* BibTeX Styling */
 pre {
-  background: var(--background-accent) !important;
+  background: linear-gradient(135deg, #fbf7ff, #fff1f8) !important;
   border: 1px solid var(--border-color) !important;
   border-radius: var(--border-radius) !important;
   padding: 1.5rem !important;
@@ -477,11 +549,10 @@ pre {
 }
 
 code {
-  background: var(--background-accent) !important;
+  background: transparent !important;
   color: var(--text-primary) !important;
   font-family: 'SF Mono', 'Monaco', 'Cascadia Code', 'Roboto Mono', monospace !important;
-  white-space: pre-wrap;
-  overflow-wrap: anywhere;
+  white-space: pre;
 }
 
 /* BibTeX Section Improvements */
@@ -493,7 +564,7 @@ code {
 }
 
 .copy-bibtex-btn {
-  background: var(--primary-color);
+  background: var(--gradient-primary);
   color: white;
   border: none;
   border-radius: var(--border-radius);
@@ -508,7 +579,7 @@ code {
 }
 
 .copy-bibtex-btn:hover {
-  background: var(--primary-hover);
+  background: var(--gradient-accent);
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
 }
@@ -528,7 +599,7 @@ code {
   right: 2rem;
   width: 50px;
   height: 50px;
-  background: var(--primary-color);
+  background: var(--gradient-primary);
   color: white;
   border: none;
   border-radius: 50%;
@@ -545,7 +616,7 @@ code {
 }
 
 .scroll-to-top:hover {
-  background: var(--primary-hover);
+  background: var(--gradient-accent);
   transform: translateY(-3px);
   box-shadow: var(--shadow-xl);
 }
@@ -772,6 +843,11 @@ code {
 
   .method-grid {
     grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .method-grid::before {
+    display: none;
   }
 }
 
@@ -827,6 +903,16 @@ code {
   .button {
     width: 100%;
     justify-content: center;
+  }
+
+  .method-card {
+    padding: 1.1rem;
+  }
+
+  .method-card-head {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.65rem;
   }
 }
 
