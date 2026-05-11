@@ -291,6 +291,69 @@ body {
   box-shadow: var(--shadow-lg);
 }
 
+.paper-figure {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
+  background: var(--background-primary);
+  box-shadow: var(--shadow-lg);
+}
+
+.figure-caption {
+  max-width: 860px;
+  margin: 1rem auto 0;
+  color: var(--text-secondary);
+  font-size: 1rem;
+  line-height: 1.65;
+  font-weight: 500;
+}
+
+.method-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.method-card {
+  padding: 1.25rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  background: var(--background-primary);
+  box-shadow: var(--shadow-sm);
+}
+
+.method-step {
+  display: inline-flex;
+  align-items: center;
+  min-height: 1.8rem;
+  margin-bottom: 0.75rem;
+  padding: 0 0.7rem;
+  border-radius: 999px;
+  background: var(--background-accent);
+  color: var(--primary-color);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+.method-card h3 {
+  margin: 0 0 0.65rem;
+  color: var(--text-primary);
+  font-size: 1.05rem;
+  font-weight: 800;
+  line-height: 1.3;
+}
+
+.method-card p {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+
 .results-carousel {
   overflow: hidden;
   padding: 1rem 0;
@@ -417,6 +480,8 @@ code {
   background: var(--background-accent) !important;
   color: var(--text-primary) !important;
   font-family: 'SF Mono', 'Monaco', 'Cascadia Code', 'Roboto Mono', monospace !important;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
 }
 
 /* BibTeX Section Improvements */
@@ -702,6 +767,11 @@ code {
   
   .content.has-text-justified {
     font-size: 1rem;
+    text-align: left !important;
+  }
+
+  .method-grid {
+    grid-template-columns: 1fr;
   }
 }
 
