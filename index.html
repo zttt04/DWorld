@@ -196,35 +196,6 @@
     <div class="container is-max-desktop">
       <h2 class="title is-3 has-text-centered">Method Overview</h2>
       <img class="paper-figure" src="static/images/dworld/pipeline.png" alt="D-World method pipeline with Gaussianization, novel-view refinement, and Gaussian set refinement" loading="lazy">
-      <p class="figure-caption method-caption has-text-centered">
-        Given reference images and driving conditions, D-World gaussianizes video diffusion latents into an explicit temporal 3DGS set, fixes sparse-view novel renderings, and self-refines the Gaussian scene.
-      </p>
-      <div class="method-grid">
-        <article class="method-card">
-          <div class="method-card-head">
-            <span class="method-index">01</span>
-            <span class="method-step">Stage I</span>
-          </div>
-          <h3>Generative Video Latent Gaussianization</h3>
-          <p>A driving video diffusion model produces multi-view temporal latents from reference images, trajectory, BEV map, camera poses, and object boxes. A Gaussian Decoder maps these latents into pixel-aligned Gaussian primitives, turning video generative priors into an initial temporally ordered 3DGS representation.</p>
-        </article>
-        <article class="method-card">
-          <div class="method-card-head">
-            <span class="method-index">02</span>
-            <span class="method-step">Stage II</span>
-          </div>
-          <h3>Novel-View Diffusion Refinement</h3>
-          <p>Sparse surround-view cameras leave shifted Gaussian renderings with holes, blur, ghosting, and color artifacts. D-World uses a one-step Gaussian Fixer to improve rendered novel views while keeping the output anchored to the generated geometry.</p>
-        </article>
-        <article class="method-card">
-          <div class="method-card-head">
-            <span class="method-index">03</span>
-            <span class="method-step">Stage III</span>
-          </div>
-          <h3>Temporal Gaussian Set Refinement</h3>
-          <p>The Gaussian Refiner combines original RGB-D observations with confidence-gated fixed novel views. It reconstructs the final temporal Gaussian set while preserving the metric driving frame and improving underconstrained regions.</p>
-        </article>
-      </div>
     </div>
   </div>
 </section>
