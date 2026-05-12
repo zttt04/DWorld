@@ -319,6 +319,22 @@ body {
   border-top: 1px solid var(--border-color);
 }
 
+.video-section {
+  background:
+    linear-gradient(180deg, #fbf7ff 0%, #fff8fd 50%, #fff 100%);
+  border-top: 1px solid var(--border-color);
+}
+
+.paper-video {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--border-radius-lg);
+  border: 1px solid rgba(192, 132, 252, 0.32);
+  background: #120d1d;
+  box-shadow: var(--shadow-lg);
+}
+
 .results-carousel {
   overflow: hidden;
   padding: 1rem 0;
