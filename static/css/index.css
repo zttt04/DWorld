@@ -377,8 +377,8 @@ body {
 }
 
 .video-showcase {
-  display: grid;
-  grid-template-columns: 1fr;
+  display: flex;
+  flex-direction: column;
   gap: 2.35rem;
 }
 
