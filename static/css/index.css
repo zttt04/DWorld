@@ -325,6 +325,50 @@ body {
   border-top: 1px solid var(--border-color);
 }
 
+.video-showcase {
+  display: grid;
+  gap: 2.25rem;
+  margin-top: 2rem;
+}
+
+.video-item {
+  padding: 1rem;
+  border: 1px solid rgba(192, 132, 252, 0.24);
+  border-radius: var(--border-radius-lg);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(253, 244, 255, 0.8));
+  box-shadow: var(--shadow-md);
+}
+
+.video-item-heading {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin-bottom: 0.9rem;
+}
+
+.video-index {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.65rem;
+  height: 1.9rem;
+  border-radius: 999px;
+  color: var(--primary-color);
+  background: rgba(236, 72, 153, 0.1);
+  border: 1px solid rgba(236, 72, 153, 0.18);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.video-item-heading h3 {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
 .paper-video {
   display: block;
   width: 100%;
