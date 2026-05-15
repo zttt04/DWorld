@@ -384,6 +384,7 @@ body {
 
 .video-item {
   margin: 0;
+  text-align: center;
 }
 
 .video-item h3 {
@@ -395,11 +396,12 @@ body {
 }
 
 .video-item p {
-  margin: 0.35rem 0 0.9rem;
+  margin: 0.35rem auto 0.9rem;
   color: var(--text-secondary);
   font-size: 0.98rem;
   line-height: 1.5;
   font-weight: 500;
+  max-width: 620px;
 }
 
 .paper-video {
