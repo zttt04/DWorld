@@ -339,7 +339,7 @@ body {
 }
 
 .video-section-heading {
-  max-width: 820px;
+  max-width: 1040px;
   margin: 0 auto 2rem;
 }
 
@@ -356,6 +356,7 @@ body {
   background: var(--gradient-primary);
   -webkit-background-clip: text;
   background-clip: text;
+  white-space: nowrap;
 }
 
 .future-subtitle {
