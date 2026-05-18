@@ -59,7 +59,7 @@
   
   <!-- Critical CSS - Load synchronously -->
   <link rel="stylesheet" href="static/css/bulma.min.css">
-  <link rel="stylesheet" href="static/css/index.css?v=20260518e">
+  <link rel="stylesheet" href="static/css/index.css?v=20260518f">
   
   <!-- Non-critical CSS - Load asynchronously -->
   <link rel="preload" href="static/css/bulma-carousel.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -193,6 +193,7 @@
         <p class="future-subtitle">
           We generate realistic multi-view future driving scenes under a wide range of challenging real-world conditions.
         </p>
+        <p class="future-row-note">Top row: GT &nbsp;|&nbsp; Bottom row: Ours Gen</p>
         <span class="future-rule" aria-hidden="true"></span>
       </div>
 
@@ -200,57 +201,33 @@
         <article class="video-item">
           <h3>Sparse Traffic</h3>
           <p>Low-density urban road with limited traffic.</p>
-          <div class="labeled-video">
-            <div class="video-row-labels" aria-hidden="true">
-              <span>GT</span>
-              <span>Ours Gen</span>
-            </div>
-            <video class="paper-video" controls muted loop playsinline preload="metadata" poster="static/images/dworld/future-sparse-traffic.jpg">
-              <source src="static/videos/future-sparse-traffic.mp4" type="video/mp4">
-            </video>
-          </div>
+          <video class="paper-video" controls muted loop playsinline preload="metadata" poster="static/images/dworld/future-sparse-traffic.jpg">
+            <source src="static/videos/future-sparse-traffic.mp4" type="video/mp4">
+          </video>
         </article>
 
         <article class="video-item">
           <h3>Surrounding Vehicles</h3>
           <p>Urban driving with nearby vehicles.</p>
-          <div class="labeled-video">
-            <div class="video-row-labels" aria-hidden="true">
-              <span>GT</span>
-              <span>Ours Gen</span>
-            </div>
-            <video class="paper-video" controls muted loop playsinline preload="metadata" poster="static/images/dworld/future-surrounding-vehicles.jpg">
-              <source src="static/videos/future-surrounding-vehicles.mp4" type="video/mp4">
-            </video>
-          </div>
+          <video class="paper-video" controls muted loop playsinline preload="metadata" poster="static/images/dworld/future-surrounding-vehicles.jpg">
+            <source src="static/videos/future-surrounding-vehicles.mp4" type="video/mp4">
+          </video>
         </article>
 
         <article class="video-item">
           <h3>Nighttime Driving</h3>
           <p>Street-lit scenes under low-light conditions.</p>
-          <div class="labeled-video">
-            <div class="video-row-labels" aria-hidden="true">
-              <span>GT</span>
-              <span>Ours Gen</span>
-            </div>
-            <video class="paper-video" controls muted loop playsinline preload="metadata" poster="static/images/dworld/future-nighttime-driving.jpg">
-              <source src="static/videos/future-nighttime-driving.mp4" type="video/mp4">
-            </video>
-          </div>
+          <video class="paper-video" controls muted loop playsinline preload="metadata" poster="static/images/dworld/future-nighttime-driving.jpg">
+            <source src="static/videos/future-nighttime-driving.mp4" type="video/mp4">
+          </video>
         </article>
 
         <article class="video-item">
           <h3>Rainy Weather</h3>
           <p>Wet roads with rainy-weather appearance.</p>
-          <div class="labeled-video">
-            <div class="video-row-labels" aria-hidden="true">
-              <span>GT</span>
-              <span>Ours Gen</span>
-            </div>
-            <video class="paper-video" controls muted loop playsinline preload="metadata" poster="static/images/dworld/future-rainy-weather.jpg">
-              <source src="static/videos/future-rainy-weather.mp4" type="video/mp4">
-            </video>
-          </div>
+          <video class="paper-video" controls muted loop playsinline preload="metadata" poster="static/images/dworld/future-rainy-weather.jpg">
+            <source src="static/videos/future-rainy-weather.mp4" type="video/mp4">
+          </video>
         </article>
       </div>
     </div>
