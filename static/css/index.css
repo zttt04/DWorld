@@ -426,6 +426,10 @@ body {
   .future-title {
     font-size: 2.05rem;
   }
+
+  .novel-view-title {
+    font-size: 2.05rem;
+  }
 }
 
 @media screen and (max-width: 520px) {
@@ -443,7 +447,15 @@ body {
     font-size: 1.95rem;
   }
 
+  .novel-view-title {
+    font-size: 1.95rem;
+  }
+
   .future-subtitle {
+    font-size: 1rem;
+  }
+
+  .novel-view-subtitle {
     font-size: 1rem;
   }
 
@@ -515,9 +527,30 @@ body {
   padding-right: 1.5rem;
 }
 
+.novel-view-heading {
+  max-width: 1040px;
+  margin: 0 auto;
+}
+
+.novel-view-title {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 2.35rem;
+  font-weight: 800;
+  line-height: 1.14;
+}
+
+.novel-view-title span {
+  color: transparent;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  background-clip: text;
+  white-space: nowrap;
+}
+
 .novel-view-subtitle {
   max-width: 720px;
-  margin: -0.85rem auto 1.6rem;
+  margin: 0.85rem auto 1.6rem;
   color: var(--text-secondary);
   font-size: 1.04rem;
   line-height: 1.55;
