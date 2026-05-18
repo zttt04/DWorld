@@ -515,6 +515,15 @@ body {
   padding-right: 1.5rem;
 }
 
+.novel-view-subtitle {
+  max-width: 720px;
+  margin: -0.85rem auto 1.6rem;
+  color: var(--text-secondary);
+  font-size: 1.04rem;
+  line-height: 1.55;
+  font-weight: 500;
+}
+
 .novel-view-carousel {
   margin-top: 0.75rem;
 }
