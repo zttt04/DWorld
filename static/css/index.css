@@ -460,7 +460,7 @@ body {
   }
 
   .novel-view-concept {
-    max-width: 92vw;
+    max-width: 88vw;
     margin-bottom: 1.5rem;
   }
 
@@ -567,7 +567,7 @@ body {
 }
 
 .novel-view-concept {
-  max-width: 680px;
+  max-width: 520px;
   margin: 0 auto 2rem;
   padding: 0;
   text-align: center;
@@ -577,10 +577,9 @@ body {
   display: block;
   width: 100%;
   height: auto;
-  border-radius: var(--border-radius);
-  border: 1px solid rgba(192, 132, 252, 0.28);
-  background: #fff;
-  box-shadow: var(--shadow-lg);
+  border: 0;
+  background: transparent;
+  box-shadow: none;
 }
 
 .novel-view-concept figcaption {
