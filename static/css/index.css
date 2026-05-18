@@ -497,6 +497,46 @@ body {
   font-weight: 500;
 }
 
+.novel-view-section {
+  background: linear-gradient(180deg, #fff 0%, #fff8fd 52%, #fbf7ff 100%);
+  border-top: 1px solid var(--border-color);
+}
+
+.novel-view-section .hero-body {
+  padding-top: 3.5rem;
+  padding-bottom: 4rem;
+}
+
+.novel-view-container {
+  box-sizing: border-box;
+  width: min(100%, 1320px);
+  max-width: 1320px !important;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.novel-view-carousel {
+  margin-top: 0.75rem;
+}
+
+.novel-view-carousel.results-carousel .item {
+  margin: 0.75rem;
+  padding: 0;
+  border-radius: var(--border-radius);
+  background: #fff;
+}
+
+.novel-view-carousel.results-carousel .item:hover {
+  transform: none;
+}
+
+.novel-view-carousel.results-carousel .item img {
+  display: block;
+  border-radius: var(--border-radius);
+  border: 1px solid rgba(192, 132, 252, 0.28);
+  box-shadow: var(--shadow-lg);
+}
+
 /* Pagination and Misc Improvements */
 .slider-pagination .slider-page {
   background: var(--primary-color);
