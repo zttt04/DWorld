@@ -59,7 +59,7 @@
   
   <!-- Critical CSS - Load synchronously -->
   <link rel="stylesheet" href="static/css/bulma.min.css">
-  <link rel="stylesheet" href="static/css/index.css?v=20260524c">
+  <link rel="stylesheet" href="static/css/index.css?v=20260524d">
   
   <!-- Non-critical CSS - Load asynchronously -->
   <link rel="preload" href="static/css/bulma-carousel.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -182,82 +182,6 @@
 </section>
 <!-- End method overview -->
 
-<!-- Efficiency validation -->
-<section class="hero is-small efficiency-section">
-  <div class="hero-body">
-    <div class="container efficiency-container">
-      <div class="efficiency-heading has-text-centered">
-        <p class="section-kicker">Efficiency Validation</p>
-        <h2 class="efficiency-title">Faster Inference without Quality Degradation</h2>
-        <p class="efficiency-subtitle">
-          D-World accelerates the two diffusion-heavy stages while preserving close visual agreement with the baseline across all six driving cameras.
-        </p>
-      </div>
-
-      <div class="efficiency-stats" aria-label="D-World efficiency results">
-        <article class="efficiency-stat">
-          <span class="efficiency-value">1.70x</span>
-          <h3>Latent Generator</h3>
-          <p>201.7s to 118.6s per sample, with 44.20dB PSNR and 0.9993 SSIM against the static-cache output.</p>
-        </article>
-        <article class="efficiency-stat">
-          <span class="efficiency-value">1.40x</span>
-          <h3>Gaussian Fixer</h3>
-          <p>8.022s to 5.735s per 7-frame, 6-camera clip, preserving 37.06dB PSNR against the FP16 serial baseline.</p>
-        </article>
-        <article class="efficiency-stat">
-          <span class="efficiency-value">6 views</span>
-          <h3>Visual Check</h3>
-          <p>Baseline, optimized output, and 5x-amplified residuals are shown for every nuScenes camera direction.</p>
-        </article>
-      </div>
-
-      <div class="efficiency-gallery">
-        <article class="efficiency-panel">
-          <figure>
-            <img src="static/images/dworld/efficiency/compare_CAM_FRONT_best_f0.png" alt="Front camera comparison between baseline, optimized output, and amplified difference" loading="lazy">
-            <figcaption>Front camera</figcaption>
-          </figure>
-        </article>
-        <article class="efficiency-panel">
-          <figure>
-            <img src="static/images/dworld/efficiency/compare_CAM_FRONT_LEFT_best_f0.png" alt="Front-left camera comparison between baseline, optimized output, and amplified difference" loading="lazy">
-            <figcaption>Front-left camera</figcaption>
-          </figure>
-        </article>
-        <article class="efficiency-panel">
-          <figure>
-            <img src="static/images/dworld/efficiency/compare_CAM_FRONT_RIGHT_best_f0.png" alt="Front-right camera comparison between baseline, optimized output, and amplified difference" loading="lazy">
-            <figcaption>Front-right camera</figcaption>
-          </figure>
-        </article>
-        <article class="efficiency-panel">
-          <figure>
-            <img src="static/images/dworld/efficiency/compare_CAM_BACK_best_f0.png" alt="Back camera comparison between baseline, optimized output, and amplified difference" loading="lazy">
-            <figcaption>Back camera</figcaption>
-          </figure>
-        </article>
-        <article class="efficiency-panel">
-          <figure>
-            <img src="static/images/dworld/efficiency/compare_CAM_BACK_LEFT_best_f0.png" alt="Back-left camera comparison between baseline, optimized output, and amplified difference" loading="lazy">
-            <figcaption>Back-left camera</figcaption>
-          </figure>
-        </article>
-        <article class="efficiency-panel">
-          <figure>
-            <img src="static/images/dworld/efficiency/compare_CAM_BACK_RIGHT_best_f0.png" alt="Back-right camera comparison between baseline, optimized output, and amplified difference" loading="lazy">
-            <figcaption>Back-right camera</figcaption>
-          </figure>
-        </article>
-      </div>
-      <p class="efficiency-note has-text-centered">
-        Each panel compares the FlashAttention baseline with the optimized Sage FP8 path and a 5x-amplified difference map.
-      </p>
-    </div>
-  </div>
-</section>
-<!-- End efficiency validation -->
-
 <!-- Future prediction -->
 <section class="hero is-small video-section">
   <div class="hero-body">
@@ -349,6 +273,48 @@
   </div>
 </section>
 <!-- End novel views -->
+
+<!-- Efficiency validation -->
+<section class="hero is-small efficiency-section">
+  <div class="hero-body">
+    <div class="container efficiency-container">
+      <div class="efficiency-heading has-text-centered">
+        <p class="section-kicker">Efficiency Validation</p>
+        <h2 class="efficiency-title">Faster Inference without Quality Degradation</h2>
+        <p class="efficiency-subtitle">
+          D-World accelerates the two diffusion-heavy stages while preserving close visual agreement with the baseline across all six driving cameras.
+        </p>
+      </div>
+
+      <div class="efficiency-stats" aria-label="D-World efficiency results">
+        <article class="efficiency-stat">
+          <span class="efficiency-value">1.70x</span>
+          <h3>Latent Generator</h3>
+          <p>201.7s to 118.6s per sample, with 44.20dB PSNR and 0.9993 SSIM against the static-cache output.</p>
+        </article>
+        <article class="efficiency-stat">
+          <span class="efficiency-value">1.40x</span>
+          <h3>Gaussian Fixer</h3>
+          <p>8.022s to 5.735s per 7-frame, 6-camera clip, preserving 37.06dB PSNR against the FP16 serial baseline.</p>
+        </article>
+        <article class="efficiency-stat">
+          <span class="efficiency-value">6 views</span>
+          <h3>Visual Check</h3>
+          <p>Baseline, optimized output, and 5x-amplified residuals are shown for every nuScenes camera direction.</p>
+        </article>
+      </div>
+
+      <figure class="efficiency-merged-figure">
+        <img src="static/images/dworld/efficiency/efficiency_six_views_merged.jpg" alt="Merged six-camera efficiency comparison with baseline, optimized output, and amplified difference columns" loading="lazy">
+        <figcaption>
+          Six-camera comparison after removing repeated per-image labels. Columns show the FlashAttention baseline, optimized Sage FP8 output, and 5x-amplified residuals.
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+<!-- End efficiency validation -->
+
   <footer class="footer">
   <div class="container"></div>
 </footer>
