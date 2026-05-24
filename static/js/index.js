@@ -97,8 +97,8 @@ $(document).ready(function() {
 		autoplaySpeed: 5000,
     }
 
-	// Initialize all div with carousel class
-    var carousels = bulmaCarousel.attach('.carousel', options);
+	// Initialize the novel-view carousel only.
+    var carousels = bulmaCarousel.attach('#novel-view-carousel', options);
 	
     bulmaSlider.attach();
     

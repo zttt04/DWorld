@@ -59,7 +59,7 @@
   
   <!-- Critical CSS - Load synchronously -->
   <link rel="stylesheet" href="static/css/bulma.min.css">
-  <link rel="stylesheet" href="static/css/index.css?v=20260524b">
+  <link rel="stylesheet" href="static/css/index.css?v=20260524c">
   
   <!-- Non-critical CSS - Load asynchronously -->
   <link rel="preload" href="static/css/bulma-carousel.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -212,43 +212,43 @@
         </article>
       </div>
 
-      <div id="efficiency-carousel" class="carousel results-carousel efficiency-carousel">
-        <div class="item">
+      <div class="efficiency-gallery">
+        <article class="efficiency-panel">
           <figure>
             <img src="static/images/dworld/efficiency/compare_CAM_FRONT_best_f0.png" alt="Front camera comparison between baseline, optimized output, and amplified difference" loading="lazy">
             <figcaption>Front camera</figcaption>
           </figure>
-        </div>
-        <div class="item">
+        </article>
+        <article class="efficiency-panel">
           <figure>
             <img src="static/images/dworld/efficiency/compare_CAM_FRONT_LEFT_best_f0.png" alt="Front-left camera comparison between baseline, optimized output, and amplified difference" loading="lazy">
             <figcaption>Front-left camera</figcaption>
           </figure>
-        </div>
-        <div class="item">
+        </article>
+        <article class="efficiency-panel">
           <figure>
             <img src="static/images/dworld/efficiency/compare_CAM_FRONT_RIGHT_best_f0.png" alt="Front-right camera comparison between baseline, optimized output, and amplified difference" loading="lazy">
             <figcaption>Front-right camera</figcaption>
           </figure>
-        </div>
-        <div class="item">
+        </article>
+        <article class="efficiency-panel">
           <figure>
             <img src="static/images/dworld/efficiency/compare_CAM_BACK_best_f0.png" alt="Back camera comparison between baseline, optimized output, and amplified difference" loading="lazy">
             <figcaption>Back camera</figcaption>
           </figure>
-        </div>
-        <div class="item">
+        </article>
+        <article class="efficiency-panel">
           <figure>
             <img src="static/images/dworld/efficiency/compare_CAM_BACK_LEFT_best_f0.png" alt="Back-left camera comparison between baseline, optimized output, and amplified difference" loading="lazy">
             <figcaption>Back-left camera</figcaption>
           </figure>
-        </div>
-        <div class="item">
+        </article>
+        <article class="efficiency-panel">
           <figure>
             <img src="static/images/dworld/efficiency/compare_CAM_BACK_RIGHT_best_f0.png" alt="Back-right camera comparison between baseline, optimized output, and amplified difference" loading="lazy">
             <figcaption>Back-right camera</figcaption>
           </figure>
-        </div>
+        </article>
       </div>
       <p class="efficiency-note has-text-centered">
         Each panel compares the FlashAttention baseline with the optimized Sage FP8 path and a 5x-amplified difference map.
