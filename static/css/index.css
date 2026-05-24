@@ -319,6 +319,148 @@ body {
   border-top: 1px solid var(--border-color);
 }
 
+.efficiency-section {
+  background: linear-gradient(180deg, #fbf7ff 0%, #fff 48%, #fff8fd 100%);
+  border-top: 1px solid var(--border-color);
+}
+
+.efficiency-section .hero-body {
+  padding-top: 3.5rem;
+  padding-bottom: 3.75rem;
+}
+
+.efficiency-container {
+  box-sizing: border-box;
+  width: min(100%, 1280px);
+  max-width: 1280px !important;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.efficiency-heading {
+  max-width: 920px;
+  margin: 0 auto 1.75rem;
+}
+
+.section-kicker {
+  margin: 0 0 0.45rem;
+  color: #9d174d;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.efficiency-title {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 2.35rem;
+  font-weight: 800;
+  line-height: 1.14;
+}
+
+.efficiency-subtitle {
+  max-width: 760px;
+  margin: 0.85rem auto 0;
+  color: var(--text-secondary);
+  font-size: 1.04rem;
+  line-height: 1.55;
+  font-weight: 500;
+}
+
+.efficiency-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 0 auto 1.35rem;
+}
+
+.efficiency-stat {
+  min-height: 190px;
+  padding: 1.2rem;
+  border: 1px solid rgba(192, 132, 252, 0.28);
+  border-radius: var(--border-radius);
+  background: rgba(255, 255, 255, 0.86);
+  box-shadow: var(--shadow-md);
+}
+
+.efficiency-value {
+  display: block;
+  margin-bottom: 0.55rem;
+  color: transparent;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  background-clip: text;
+  font-size: 2.25rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.efficiency-stat h3 {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 1.05rem;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.efficiency-stat p {
+  margin: 0.55rem 0 0;
+  color: var(--text-secondary);
+  font-size: 0.94rem;
+  line-height: 1.55;
+  font-weight: 500;
+}
+
+.efficiency-carousel {
+  padding: 0.35rem 0 0.75rem;
+}
+
+.efficiency-carousel.results-carousel .item {
+  margin: 0.75rem;
+  padding: 0;
+  border-radius: var(--border-radius);
+  background: #fff;
+}
+
+.efficiency-carousel.results-carousel .item:hover {
+  transform: none;
+}
+
+.efficiency-carousel figure {
+  margin: 0;
+}
+
+.efficiency-carousel.results-carousel .item img {
+  display: block;
+  border-radius: var(--border-radius) var(--border-radius) 0 0;
+  border: 1px solid rgba(192, 132, 252, 0.28);
+  border-bottom: 0;
+  box-shadow: none;
+}
+
+.efficiency-carousel figcaption {
+  padding: 0.65rem 1rem;
+  border: 1px solid rgba(192, 132, 252, 0.28);
+  border-top: 0;
+  border-radius: 0 0 var(--border-radius) var(--border-radius);
+  color: var(--text-secondary);
+  background: #fff;
+  font-size: 0.92rem;
+  font-weight: 800;
+  line-height: 1.3;
+  text-align: center;
+}
+
+.efficiency-note {
+  max-width: 760px;
+  margin: 0.45rem auto 0;
+  color: var(--text-light);
+  font-size: 0.92rem;
+  line-height: 1.5;
+  font-weight: 700;
+}
+
 .video-section {
   background:
     linear-gradient(180deg, #fbf7ff 0%, #fff8fd 52%, #fff 100%);
@@ -438,6 +580,18 @@ body {
   .novel-view-title {
     font-size: 2.05rem;
   }
+
+  .efficiency-title {
+    font-size: 2.05rem;
+  }
+
+  .efficiency-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .efficiency-stat {
+    min-height: 0;
+  }
 }
 
 @media screen and (max-width: 520px) {
@@ -459,12 +613,38 @@ body {
     font-size: 1.95rem;
   }
 
+  .efficiency-container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .efficiency-section .hero-body {
+    padding-top: 3.1rem;
+    padding-bottom: 3.25rem;
+  }
+
+  .efficiency-title {
+    font-size: 1.95rem;
+  }
+
   .future-subtitle {
+    font-size: 1rem;
+  }
+
+  .efficiency-subtitle {
     font-size: 1rem;
   }
 
   .future-row-note {
     font-size: 0.82rem;
+  }
+
+  .efficiency-value {
+    font-size: 2rem;
+  }
+
+  .efficiency-stat {
+    padding: 1rem;
   }
 
   .novel-view-subtitle {
@@ -939,7 +1119,7 @@ body {
     margin: 0.5rem;
     padding: 1rem;
   }
-  
+
   .teaser .hero-body {
     padding: 1rem;
   }
