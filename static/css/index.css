@@ -413,7 +413,8 @@ body {
 }
 
 .efficiency-merged-figure {
-  margin: 0.35rem 0 0;
+  max-width: 900px;
+  margin: 0.35rem auto 0;
 }
 
 .efficiency-merged-figure img {
