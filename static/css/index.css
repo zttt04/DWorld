@@ -163,6 +163,27 @@ body {
   background: linear-gradient(135deg, #fff1f8, #f6edff);
 }
 
+.publication-links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin: -0.25rem 0 0.5rem;
+}
+
+.code-coming-soon {
+  cursor: default;
+  pointer-events: none;
+  opacity: 0.94;
+}
+
+.code-release-note {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 0.96rem;
+  font-weight: 600;
+}
+
 .publication-banner {
   max-height: 70vh;
   border-radius: var(--border-radius-lg);
