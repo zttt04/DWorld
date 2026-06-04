@@ -359,7 +359,10 @@
 
 <script>
   (() => {
-    const basePath = "https://assets.dworld.xin/final_gaussian_scenes/";
+    const primaryBasePath = "https://assets.dworld.xin/final_gaussian_scenes/";
+    const fallbackBasePath = "https://dworld.oss-cn-hongkong.aliyuncs.com/final_gaussian_scenes/";
+    const probeFile = "example1_0s_scene_0436_frame_0060.ply";
+    let basePath = primaryBasePath;
     const scenes = [
       {
         label: "Example 1",
@@ -407,6 +410,29 @@
         frame.removeAttribute("src");
       }
       grid.replaceChildren();
+    };
+
+    const resolveBasePath = async () => {
+      const controller = new AbortController();
+      const timeout = window.setTimeout(() => controller.abort(), 2500);
+
+      try {
+        const response = await fetch(primaryBasePath + probeFile, {
+          method: "HEAD",
+          mode: "cors",
+          cache: "no-store",
+          signal: controller.signal
+        });
+        if (!response.ok) {
+          throw new Error(`Gaussian asset probe failed with ${response.status}`);
+        }
+        basePath = primaryBasePath;
+      } catch (error) {
+        console.warn("Using OSS fallback for Gaussian assets.", error);
+        basePath = fallbackBasePath;
+      } finally {
+        window.clearTimeout(timeout);
+      }
     };
 
     const renderScene = (index) => {
@@ -478,7 +504,7 @@
 
     prevButton.addEventListener("click", () => renderScene(activeScene - 1));
     nextButton.addEventListener("click", () => renderScene(activeScene + 1));
-    renderScene(0);
+    resolveBasePath().finally(() => renderScene(0));
   })();
 </script>
 
