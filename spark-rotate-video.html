@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>D-World Gaussian Rotation</title>
+  <style>
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: #0f1115;
+      color: #f7f7f7;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    canvas {
+      display: block;
+    }
+
+    .hud {
+      position: fixed;
+      top: 16px;
+      left: 16px;
+      max-width: min(420px, calc(100vw - 32px));
+      padding: 12px 14px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 8px;
+      background: rgba(15, 17, 21, 0.78);
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.24);
+      backdrop-filter: blur(10px);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .hud strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 14px;
+    }
+
+    .status {
+      color: #a7f3d0;
+    }
+
+    .status[data-state="error"] {
+      color: #fecaca;
+    }
+
+    .meta {
+      margin-top: 3px;
+      color: #cbd5e1;
+    }
+
+    body.recording .hud {
+      display: none;
+    }
+
+    .controls {
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      width: min(320px, calc(100vw - 32px));
+      padding: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 8px;
+      background: rgba(15, 17, 21, 0.82);
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.24);
+      backdrop-filter: blur(10px);
+      font-size: 12px;
+    }
+
+    .control-title {
+      margin-bottom: 10px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .control-row {
+      display: grid;
+      grid-template-columns: 82px minmax(0, 1fr) 48px;
+      gap: 8px;
+      align-items: center;
+      margin-top: 9px;
+    }
+
+    .control-row label {
+      color: #e2e8f0;
+    }
+
+    .control-row output {
+      color: #cbd5e1;
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: #38bdf8;
+    }
+
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 12px;
+      color: #e2e8f0;
+    }
+
+    .toggle-row input {
+      width: 18px;
+      height: 18px;
+      accent-color: #38bdf8;
+    }
+
+    body.recording .controls {
+      display: none;
+    }
+
+    html.clean-ui .hud,
+    html.clean-ui .controls,
+    body.clean-ui .hud,
+    body.clean-ui .controls {
+      display: none;
+    }
+  </style>
+  <script>
+    if (new URLSearchParams(window.location.search).get("ui") === "clean") {
+      document.documentElement.classList.add("clean-ui");
+    }
+  </script>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/",
+        "@sparkjsdev/spark": "https://sparkjs.dev/releases/spark/2.1.0/spark.module.js"
+      }
+    }
+  </script>
+</head>
+<body>
+  <div class="hud" aria-live="polite">
+    <strong>D-World Gaussian Rotation</strong>
+    <div id="status" class="status">Loading Gaussian frame...</div>
+    <div id="meta" class="meta">Preparing camera path...</div>
+  </div>
+
+  <form class="controls" id="camera-controls">
+    <div class="control-title">Camera Path</div>
+    <div class="control-row">
+      <label for="distance">Distance</label>
+      <input id="distance" name="radius" type="range" min="18" max="150" step="1" value="18">
+      <output for="distance">18</output>
+    </div>
+    <div class="control-row">
+      <label for="height">Height</label>
+      <input id="height" name="height" type="range" min="-2" max="36" step="0.5" value="7">
+      <output for="height">7</output>
+    </div>
+    <div class="control-row">
+      <label for="start-angle">Start</label>
+      <input id="start-angle" name="startAngle" type="range" min="-180" max="180" step="1" value="32">
+      <output for="start-angle">32</output>
+    </div>
+    <div class="control-row">
+      <label for="arc">Arc</label>
+      <input id="arc" name="arc" type="range" min="-360" max="360" step="1" value="360">
+      <output for="arc">360</output>
+    </div>
+    <div class="control-row">
+      <label for="duration">Seconds</label>
+      <input id="duration" name="duration" type="range" min="3" max="30" step="1" value="8">
+      <output for="duration">8</output>
+    </div>
+    <div class="toggle-row">
+      <label for="auto-rotate">Auto rotate</label>
+      <input id="auto-rotate" name="autoRotate" type="checkbox" checked>
+    </div>
+  </form>
+
+  <script type="module">
+    import * as THREE from "three";
+    import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+    import { SparkRenderer, SplatMesh } from "@sparkjsdev/spark";
+
+    const status = document.getElementById("status");
+    const meta = document.getElementById("meta");
+    const setStatus = (message, state = "ok") => {
+      status.textContent = message;
+      status.dataset.state = state;
+    };
+    const setMeta = (message) => {
+      meta.textContent = message;
+    };
+
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("ui") === "clean") {
+      document.body.classList.add("clean-ui");
+    }
+    const splatURL = params.get("src") || "static/splats/clip0-frame-00-within50m.ply";
+
+    if (window.location.protocol === "file:") {
+      setStatus("Open from http://localhost:8088/spark-rotate-video.html, not file://.", "error");
+      throw new Error("Use the local HTTP server.");
+    }
+
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x0f1115);
+
+    const target = new THREE.Vector3(0.481, -0.663, -1.431);
+    const camera = new THREE.PerspectiveCamera(58, window.innerWidth / window.innerHeight, 0.01, 1000);
+
+    const renderer = new THREE.WebGLRenderer({
+      antialias: false,
+      preserveDrawingBuffer: true,
+      powerPreference: "high-performance"
+    });
+    renderer.setPixelRatio(1);
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    const orbitControls = new OrbitControls(camera, renderer.domElement);
+    orbitControls.target.copy(target);
+    orbitControls.enableDamping = true;
+    orbitControls.dampingFactor = 0.06;
+    orbitControls.enabled = false;
+    orbitControls.maxDistance = 180;
+    orbitControls.minDistance = 4;
+
+    const spark = new SparkRenderer({ renderer });
+    scene.add(spark);
+
+    const controlsPanel = document.getElementById("camera-controls");
+    const cameraPath = {
+      duration: 8,
+      radius: 18,
+      height: 7,
+      startAngle: degreesToRadians(32),
+      arc: Math.PI * 2
+    };
+    let startTime = performance.now();
+    let autoRotate = true;
+    let manualProgress = 0;
+
+    function degreesToRadians(degrees) {
+      return degrees * Math.PI / 180;
+    }
+    const syncControls = () => {
+      const entries = [
+        ["radius", cameraPath.radius],
+        ["height", cameraPath.height],
+        ["startAngle", Math.round(cameraPath.startAngle * 180 / Math.PI)],
+        ["arc", Math.round(cameraPath.arc * 180 / Math.PI)],
+        ["duration", cameraPath.duration]
+      ];
+      for (const [name, value] of entries) {
+        const input = controlsPanel.elements[name];
+        const output = input.parentElement.querySelector("output");
+        output.textContent = String(value);
+      }
+    };
+
+    const updateCamera = (time) => {
+      const elapsed = ((time - startTime) / 1000) % cameraPath.duration;
+      const progress = autoRotate ? elapsed / cameraPath.duration : manualProgress;
+      const angle = cameraPath.startAngle + progress * cameraPath.arc;
+      camera.position.set(
+        target.x + Math.sin(angle) * cameraPath.radius,
+        target.y + cameraPath.height,
+        target.z + Math.cos(angle) * cameraPath.radius
+      );
+      camera.lookAt(target);
+      orbitControls.target.copy(target);
+      orbitControls.update();
+    };
+
+    const setAutoRotate = (enabled) => {
+      autoRotate = enabled;
+      orbitControls.enabled = !enabled;
+      startTime = performance.now();
+      setMeta(enabled ? "Auto-rotating" : "Manual orbit: drag to rotate, scroll to zoom");
+      if (enabled) {
+        updateCamera(performance.now());
+      }
+    };
+
+    controlsPanel.addEventListener("input", (event) => {
+      const input = event.target;
+      if (!(input instanceof HTMLInputElement)) {
+        return;
+      }
+
+      if (input.name === "autoRotate") {
+        setAutoRotate(input.checked);
+        return;
+      }
+
+      if (input.name === "radius") {
+        cameraPath.radius = Number(input.value);
+      } else if (input.name === "height") {
+        cameraPath.height = Number(input.value);
+      } else if (input.name === "startAngle") {
+        cameraPath.startAngle = degreesToRadians(Number(input.value));
+      } else if (input.name === "arc") {
+        cameraPath.arc = degreesToRadians(Number(input.value));
+      } else if (input.name === "duration") {
+        cameraPath.duration = Number(input.value);
+      }
+
+      input.parentElement.querySelector("output").textContent = input.value;
+      startTime = performance.now();
+    });
+
+    syncControls();
+
+    const splat = new SplatMesh({
+      url: splatURL,
+      onProgress: (event) => {
+        const total = event.lengthComputable ? event.total : 0;
+        const loaded = event.loaded || 0;
+        const progress = total ? ` ${Math.round((loaded / total) * 100)}%` : "";
+        setStatus(`Loading Clip 0 Frame 00 within 50m${progress}...`);
+      }
+    });
+    scene.add(splat);
+
+    await splat.initialized;
+    setStatus("Loaded Clip 0 Frame 00 within 50m");
+    setMeta("Auto-rotating");
+    window.__dworldReady = true;
+
+    window.__dworldStartRotation = () => {
+      document.body.classList.add("recording");
+      setAutoRotate(true);
+      controlsPanel.elements.autoRotate.checked = true;
+    };
+
+    window.__dworldStopRotation = () => {
+      setAutoRotate(false);
+      document.body.classList.remove("recording");
+      controlsPanel.elements.autoRotate.checked = false;
+    };
+
+    window.__dworldSetRotationProgress = (progress) => {
+      autoRotate = false;
+      orbitControls.enabled = true;
+      manualProgress = progress;
+      controlsPanel.elements.autoRotate.checked = false;
+      updateCamera(performance.now());
+      renderer.render(scene, camera);
+    };
+
+    window.addEventListener("message", (event) => {
+      if (event.data?.type === "dworld:setAutoRotate") {
+        setAutoRotate(Boolean(event.data.enabled));
+        controlsPanel.elements.autoRotate.checked = Boolean(event.data.enabled);
+      }
+    });
+
+    const resize = () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    };
+    window.addEventListener("resize", resize);
+
+    renderer.setAnimationLoop((time) => {
+      if (autoRotate) {
+        updateCamera(time);
+      } else {
+        orbitControls.update();
+      }
+      renderer.render(scene, camera);
+    });
+
+    window.addEventListener("error", (event) => {
+      setStatus(event.message || "SparkJS failed to load the PLY.", "error");
+    });
+
+    window.addEventListener("unhandledrejection", (event) => {
+      setStatus(event.reason?.message || "SparkJS failed to load the PLY.", "error");
+    });
+  </script>
+</body>
+</html>

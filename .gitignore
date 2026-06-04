@@ -1,0 +1,2 @@
+static/splats/*.ply
+static/splats/**/*.ply

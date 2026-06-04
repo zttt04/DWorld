@@ -886,6 +886,210 @@ body {
   text-decoration: underline;
 }
 
+/* Interactive Gaussian Viewer */
+.gaussian-viewer-section {
+  background: var(--background-primary);
+}
+
+.gaussian-viewer-container {
+  max-width: 1440px;
+}
+
+.gaussian-viewer-heading {
+  margin-bottom: 1.5rem;
+}
+
+.gaussian-viewer-title {
+  color: var(--text-primary);
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin: 0 0 0.6rem;
+}
+
+.gaussian-viewer-subtitle {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  margin: 0 auto;
+  max-width: 680px;
+}
+
+.gaussian-scene-browser {
+  display: grid;
+  grid-template-columns: 46px minmax(0, 1fr) 46px;
+  gap: 12px;
+  align-items: center;
+}
+
+.gaussian-scene-content {
+  min-width: 0;
+}
+
+.gaussian-scene-meta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 28px;
+  margin-bottom: 12px;
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+.gaussian-scene-meta span:first-child {
+  color: var(--text-primary);
+}
+
+.gaussian-scene-nav {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--surface-color);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.gaussian-scene-nav:hover {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+  transform: translateY(-1px);
+}
+
+.gaussian-scene-nav:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+.gaussian-viewer-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.gaussian-viewer-tile {
+  position: relative;
+  min-width: 0;
+  aspect-ratio: 4 / 3;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  overflow: hidden;
+  background: #0f1115;
+}
+
+.gaussian-viewer-frame {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  border: 0;
+  background: #0f1115;
+}
+
+.gaussian-viewer-controls {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 2;
+  display: inline-flex;
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  background: rgba(15, 17, 21, 0.74);
+  backdrop-filter: blur(8px);
+  pointer-events: auto;
+}
+
+.gaussian-viewer-time {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 0 9px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  background: rgba(15, 17, 21, 0.74);
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1;
+  backdrop-filter: blur(8px);
+}
+
+.gaussian-viewer-control {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.76);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.gaussian-viewer-control:hover,
+.gaussian-viewer-control.is-active {
+  background: rgba(255, 255, 255, 0.16);
+  color: #fff;
+}
+
+.gaussian-viewer-control:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+@media screen and (max-width: 768px) {
+  .gaussian-viewer-title {
+    font-size: 1.5rem;
+  }
+
+  .gaussian-scene-browser {
+    grid-template-columns: 42px minmax(0, 1fr) 42px;
+    gap: 8px;
+  }
+
+  .gaussian-scene-nav {
+    width: 42px;
+    height: 42px;
+  }
+
+  .gaussian-viewer-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 6px;
+  }
+
+  .gaussian-viewer-controls {
+    top: 6px;
+    right: 6px;
+    padding: 3px;
+  }
+
+  .gaussian-viewer-time {
+    top: 6px;
+    left: 6px;
+    min-height: 24px;
+    padding: 0 7px;
+    font-size: 0.7rem;
+  }
+
+  .gaussian-viewer-control {
+    width: 26px;
+    height: 26px;
+  }
+}
+
 /* Scroll to Top Button */
 .scroll-to-top {
   position: fixed;

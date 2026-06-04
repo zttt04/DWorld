@@ -59,7 +59,7 @@
   
   <!-- Critical CSS - Load synchronously -->
   <link rel="stylesheet" href="static/css/bulma.min.css">
-  <link rel="stylesheet" href="static/css/index.css?v=20260527a">
+  <link rel="stylesheet" href="static/css/index.css?v=20260603a">
   
   <!-- Non-critical CSS - Load asynchronously -->
   <link rel="preload" href="static/css/bulma-carousel.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -190,6 +190,37 @@
   </div>
 </section>
 <!-- End method overview -->
+
+<!-- Interactive Gaussian scene -->
+<section class="hero is-small gaussian-viewer-section">
+  <div class="hero-body">
+    <div class="container gaussian-viewer-container">
+      <div class="gaussian-viewer-heading has-text-centered">
+        <p class="section-kicker">Interactive 3DGS Preview</p>
+        <h2 class="gaussian-viewer-title">Explore Generated Gaussian Driving Scenes</h2>
+        <p class="gaussian-viewer-subtitle">
+          Inspect temporal samples from each generated Gaussian set.
+        </p>
+      </div>
+      <div class="gaussian-scene-browser" data-gaussian-scene-browser>
+        <button class="gaussian-scene-nav" type="button" data-scene-prev aria-label="Previous Gaussian scene" title="Previous scene">
+          <i class="fas fa-chevron-left" aria-hidden="true"></i>
+        </button>
+        <div class="gaussian-scene-content">
+          <div class="gaussian-scene-meta" aria-live="polite">
+            <span data-scene-label>Scene 1</span>
+            <span data-scene-count>1 / 3</span>
+          </div>
+          <div class="gaussian-viewer-grid" data-scene-grid aria-label="Interactive 3D Gaussian scene viewers"></div>
+        </div>
+        <button class="gaussian-scene-nav" type="button" data-scene-next aria-label="Next Gaussian scene" title="Next scene">
+          <i class="fas fa-chevron-right" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End interactive Gaussian scene -->
 
 <!-- Future prediction -->
 <section class="hero is-small video-section">
@@ -323,6 +354,133 @@
   </div>
 </section>
 <!-- End efficiency validation -->
+
+
+
+<script>
+  (() => {
+    const basePath = "https://assets.dworld.xin/final_gaussian_scenes/";
+    const scenes = [
+      {
+        label: "Example 1",
+        frames: [
+          ["0s", "example1_0s_scene_0436_frame_0060.ply"],
+          ["5s", "example1_5s_scene_0436_frame_0120.ply"],
+          ["10s", "example1_10s_scene_0436_frame_0160.ply"],
+          ["15s", "example1_15s_scene_0436_frame_0220.ply"]
+        ]
+      },
+      {
+        label: "Example 2",
+        frames: [
+          ["0s", "example2_0s_scene_0547_frame_0030.ply"],
+          ["5s", "example2_5s_scene_0547_frame_0090.ply"],
+          ["10s", "example2_10s_scene_0547_frame_0150.ply"],
+          ["15s", "example2_15s_scene_0547_frame_0200.ply"]
+        ]
+      },
+      {
+        label: "Example 3",
+        frames: [
+          ["0s", "example3_0s_scene_0503_frame_0000.ply"],
+          ["5s", "example3_5s_scene_0503_frame_0070.ply"],
+          ["10s", "example3_10s_scene_0503_frame_0150.ply"],
+          ["15s", "example3_15s_scene_0503_frame_0170.ply"]
+        ]
+      }
+    ];
+
+    const browser = document.querySelector("[data-gaussian-scene-browser]");
+    if (!browser) {
+      return;
+    }
+
+    const grid = browser.querySelector("[data-scene-grid]");
+    const label = browser.querySelector("[data-scene-label]");
+    const count = browser.querySelector("[data-scene-count]");
+    const prevButton = browser.querySelector("[data-scene-prev]");
+    const nextButton = browser.querySelector("[data-scene-next]");
+    let activeScene = 0;
+
+    const unloadScene = () => {
+      for (const frame of grid.querySelectorAll("iframe")) {
+        frame.removeAttribute("src");
+      }
+      grid.replaceChildren();
+    };
+
+    const renderScene = (index) => {
+      activeScene = (index + scenes.length) % scenes.length;
+      const scene = scenes[activeScene];
+
+      unloadScene();
+      label.textContent = scene.label;
+      count.textContent = `${activeScene + 1} / ${scenes.length}`;
+
+      const fragment = document.createDocumentFragment();
+      scene.frames.forEach(([frameLabel, file], frameIndex) => {
+        const viewer = document.createElement("div");
+        viewer.className = "gaussian-viewer-tile";
+
+        const frame = document.createElement("iframe");
+        frame.className = "gaussian-viewer-frame";
+        frame.title = `${scene.label} Gaussian driving scene viewer ${frameIndex + 1}`;
+        frame.loading = "eager";
+        frame.allow = "fullscreen";
+        frame.src = `spark-rotate-video.html?v=20260603a&ui=clean&src=${encodeURIComponent(basePath + file)}`;
+
+        const time = document.createElement("div");
+        time.className = "gaussian-viewer-time";
+        time.textContent = frameLabel;
+
+        const controls = document.createElement("div");
+        controls.className = "gaussian-viewer-controls";
+        controls.setAttribute("aria-label", `${scene.label} viewer ${frameIndex + 1} controls`);
+
+        const rotateButton = document.createElement("button");
+        rotateButton.className = "gaussian-viewer-control is-active";
+        rotateButton.type = "button";
+        rotateButton.dataset.mode = "auto";
+        rotateButton.title = "Auto rotate";
+        rotateButton.setAttribute("aria-label", "Auto rotate");
+        rotateButton.innerHTML = '<i class="fas fa-sync-alt" aria-hidden="true"></i>';
+
+        const manualButton = document.createElement("button");
+        manualButton.className = "gaussian-viewer-control";
+        manualButton.type = "button";
+        manualButton.dataset.mode = "manual";
+        manualButton.title = "Manual drag and zoom";
+        manualButton.setAttribute("aria-label", "Manual drag and zoom");
+        manualButton.innerHTML = '<i class="fas fa-hand-pointer" aria-hidden="true"></i>';
+
+        controls.append(rotateButton, manualButton);
+        viewer.append(frame, time, controls);
+        fragment.appendChild(viewer);
+      });
+
+      grid.appendChild(fragment);
+    };
+
+    grid.addEventListener("click", (event) => {
+      const button = event.target.closest(".gaussian-viewer-control");
+      if (!button) {
+        return;
+      }
+
+      const tile = button.closest(".gaussian-viewer-tile");
+      const frame = tile?.querySelector("iframe");
+      const enabled = button.dataset.mode === "auto";
+
+      tile.querySelector('[data-mode="auto"]').classList.toggle("is-active", enabled);
+      tile.querySelector('[data-mode="manual"]').classList.toggle("is-active", !enabled);
+      frame?.contentWindow?.postMessage({ type: "dworld:setAutoRotate", enabled }, window.location.origin);
+    });
+
+    prevButton.addEventListener("click", () => renderScene(activeScene - 1));
+    nextButton.addEventListener("click", () => renderScene(activeScene + 1));
+    renderScene(0);
+  })();
+</script>
 
   <footer class="footer">
   <div class="container"></div>
