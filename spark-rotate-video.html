@@ -331,6 +331,7 @@
     setStatus("Loaded Clip 0 Frame 00 within 50m");
     setMeta("Auto-rotating");
     window.__dworldReady = true;
+    window.parent?.postMessage({ type: "dworld:viewerReady" }, "*");
 
     window.__dworldStartRotation = () => {
       document.body.classList.add("recording");

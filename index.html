@@ -404,8 +404,10 @@
     const prevButton = browser.querySelector("[data-scene-prev]");
     const nextButton = browser.querySelector("[data-scene-next]");
     let activeScene = 0;
+    let loadTimer = 0;
 
     const unloadScene = () => {
+      window.clearTimeout(loadTimer);
       for (const frame of grid.querySelectorAll("iframe")) {
         frame.removeAttribute("src");
       }
@@ -453,11 +455,16 @@
         frame.title = `${scene.label} Gaussian driving scene viewer ${frameIndex + 1}`;
         frame.loading = "eager";
         frame.allow = "fullscreen";
-        frame.src = `spark-rotate-video.html?v=20260603a&ui=clean&src=${encodeURIComponent(basePath + file)}`;
+        frame.dataset.src = `spark-rotate-video.html?v=20260603a&ui=clean&src=${encodeURIComponent(basePath + file)}`;
+        frame.dataset.viewerId = `${activeScene}-${frameIndex}`;
 
         const time = document.createElement("div");
         time.className = "gaussian-viewer-time";
         time.textContent = frameLabel;
+
+        const loading = document.createElement("div");
+        loading.className = "gaussian-viewer-loading";
+        loading.textContent = "Loading";
 
         const controls = document.createElement("div");
         controls.className = "gaussian-viewer-controls";
@@ -480,11 +487,21 @@
         manualButton.innerHTML = '<i class="fas fa-hand-pointer" aria-hidden="true"></i>';
 
         controls.append(rotateButton, manualButton);
-        viewer.append(frame, time, controls);
+        viewer.append(frame, loading, time, controls);
         fragment.appendChild(viewer);
       });
 
       grid.appendChild(fragment);
+      const frames = [...grid.querySelectorAll("iframe")];
+      const loadFrame = (frameIndex = 0) => {
+        const frame = frames[frameIndex];
+        if (!frame) {
+          return;
+        }
+        frame.src = frame.dataset.src;
+        loadTimer = window.setTimeout(() => loadFrame(frameIndex + 1), frameIndex === 0 ? 1400 : 2600);
+      };
+      loadFrame();
     };
 
     grid.addEventListener("click", (event) => {
@@ -500,6 +517,14 @@
       tile.querySelector('[data-mode="auto"]').classList.toggle("is-active", enabled);
       tile.querySelector('[data-mode="manual"]').classList.toggle("is-active", !enabled);
       frame?.contentWindow?.postMessage({ type: "dworld:setAutoRotate", enabled }, window.location.origin);
+    });
+
+    window.addEventListener("message", (event) => {
+      if (event.data?.type !== "dworld:viewerReady") {
+        return;
+      }
+      const frame = [...grid.querySelectorAll("iframe")].find((item) => item.contentWindow === event.source);
+      frame?.closest(".gaussian-viewer-tile")?.classList.add("is-viewer-loaded");
     });
 
     prevButton.addEventListener("click", () => renderScene(activeScene - 1));
