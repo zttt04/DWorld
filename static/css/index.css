@@ -914,11 +914,49 @@ body {
   max-width: 680px;
 }
 
+.gaussian-viewer-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 42px;
+  margin-top: 1rem;
+  padding: 0 16px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--surface-color);
+  color: var(--text-primary);
+  font-size: 0.92rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.gaussian-viewer-toggle:hover {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+  transform: translateY(-1px);
+}
+
+.gaussian-viewer-toggle:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+.gaussian-viewer-toggle.is-loading {
+  cursor: wait;
+  opacity: 0.72;
+}
+
 .gaussian-scene-browser {
   display: grid;
   grid-template-columns: 46px minmax(0, 1fr) 46px;
   gap: 12px;
   align-items: center;
+}
+
+.gaussian-scene-browser[hidden] {
+  display: none;
 }
 
 .gaussian-scene-content {

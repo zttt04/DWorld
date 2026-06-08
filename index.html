@@ -201,8 +201,12 @@
         <p class="gaussian-viewer-subtitle">
           Inspect temporal samples from each generated Gaussian set.
         </p>
+        <button class="gaussian-viewer-toggle" type="button" data-gaussian-toggle aria-expanded="false" aria-controls="gaussian-scene-browser">
+          <i class="fas fa-cube" aria-hidden="true"></i>
+          <span>Load interactive 3DGS preview</span>
+        </button>
       </div>
-      <div class="gaussian-scene-browser" data-gaussian-scene-browser>
+      <div id="gaussian-scene-browser" class="gaussian-scene-browser is-collapsed" data-gaussian-scene-browser hidden>
         <button class="gaussian-scene-nav" type="button" data-scene-prev aria-label="Previous Gaussian scene" title="Previous scene">
           <i class="fas fa-chevron-left" aria-hidden="true"></i>
         </button>
@@ -395,6 +399,7 @@
       return;
     }
 
+    const toggleButton = document.querySelector("[data-gaussian-toggle]");
     const grid = browser.querySelector("[data-scene-grid]");
     const label = browser.querySelector("[data-scene-label]");
     const count = browser.querySelector("[data-scene-count]");
@@ -402,6 +407,8 @@
     const nextButton = browser.querySelector("[data-scene-next]");
     let activeScene = 0;
     let loadTimer = 0;
+    let isExpanded = false;
+    let hasLoaded = false;
 
     const unloadScene = () => {
       window.clearTimeout(loadTimer);
@@ -409,6 +416,29 @@
         frame.removeAttribute("src");
       }
       grid.replaceChildren();
+    };
+
+    const setExpanded = async (expanded) => {
+      isExpanded = expanded;
+      browser.hidden = !expanded;
+      browser.classList.toggle("is-collapsed", !expanded);
+      toggleButton?.setAttribute("aria-expanded", String(expanded));
+      toggleButton?.querySelector("span")?.replaceChildren(
+        document.createTextNode(expanded ? "Hide interactive 3DGS preview" : "Load interactive 3DGS preview")
+      );
+
+      if (!expanded) {
+        unloadScene();
+        return;
+      }
+
+      if (!hasLoaded) {
+        hasLoaded = true;
+        toggleButton?.classList.add("is-loading");
+        await resolveBasePath();
+        toggleButton?.classList.remove("is-loading");
+      }
+      renderScene(activeScene);
     };
 
     const resolveBasePath = async () => {
@@ -526,7 +556,9 @@
 
     prevButton.addEventListener("click", () => renderScene(activeScene - 1));
     nextButton.addEventListener("click", () => renderScene(activeScene + 1));
-    resolveBasePath().finally(() => renderScene(0));
+    toggleButton?.addEventListener("click", () => {
+      setExpanded(!isExpanded);
+    });
   })();
 </script>
 
